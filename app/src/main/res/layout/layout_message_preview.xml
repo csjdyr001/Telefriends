@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_prev_layout"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingEnd="7dp"
+    android:paddingStart="0dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_chat_contact"
+        android:layout_width="@dimen/message_image_preview_scale"
+        android:layout_height="@dimen/message_image_preview_scale"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/profile_default_male"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/message_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="名称占位符 更多 文本"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/message_check_sign"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/img_chat_contact"
+        app:layout_constraintTop_toTopOf="@id/img_chat_contact" />
+
+
+    <TextView
+        android:id="@+id/draft_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="5dp"
+        android:text="草稿："
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/img_chat_contact"
+        app:layout_constraintEnd_toStartOf="@id/pin_image"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/message_title" />
+
+    <TextView
+        android:id="@+id/message_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="3dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="这是占位符吗？"
+        android:textSize="14sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/img_chat_contact"
+        app:layout_constraintEnd_toStartOf="@id/pin_image"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/draft_label" />
+
+    <ImageView
+        android:id="@+id/message_check_sign"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_check"
+        app:layout_constraintEnd_toStartOf="@id/message_sent_time"
+        app:layout_constraintTop_toTopOf="@id/img_chat_contact" />
+
+    <TextView
+        android:id="@+id/message_sent_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="06:66"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_chat_contact" />
+
+    <ImageView
+        android:id="@+id/pin_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_pin"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/img_chat_contact"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

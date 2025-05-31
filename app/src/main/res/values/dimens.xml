@@ -1,0 +1,40 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="header_view_start_margin_left">16dp</dimen>
+    <dimen name="header_view_end_margin_left">8dp</dimen>
+    <dimen name="header_view_end_margin_right">14dp</dimen>
+    <dimen name="header_view_start_margin_bottom">14dp</dimen>
+    <dimen name="header_view_start_text_size">18sp</dimen>
+    <dimen name="header_view_end_text_size">12sp</dimen>
+
+    <dimen name="image_scale">48dp</dimen>
+    <dimen name="image_scale_toolbar">32dp</dimen>
+
+    <dimen name="textHeader_padding">12dp</dimen>
+
+    <dimen name="margin_start_txt">19dp</dimen>
+    <dimen name="margin_end_txt">19dp</dimen>
+
+    <dimen name="settings_subheader_fontsize">17sp</dimen>
+    <dimen name="settings_text_fontsize">16sp</dimen>
+
+    <dimen name="recycle_item_one_line">45dp</dimen>
+    <dimen name="recycle_top_margin">45dp</dimen>
+
+    <dimen name="message_image_preview_scale">56dp</dimen>
+
+    <dimen name="convo_edittext_scale">46dp</dimen>
+    <dimen name="convo_btn_in_edittext_scale">24dp</dimen>
+
+    <dimen name="text_margin">5dp</dimen>
+
+    <dimen name="md_bottom_sheet_separator_top_margin">7dp</dimen>
+
+</resources>

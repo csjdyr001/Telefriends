@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!--<uses-sdk tools:overrideLibrary="android.arch.lifecycle, android.arch.persistence.room"/>-->
+    
+    <application 
+        android:allowBackup="true" 
+        android:name=".AndroidApplication"
+        android:icon="@mipmap/ic_launcher" 
+        android:roundIcon="@mipmap/ic_launcher" 
+        android:label="@string/app_name" 
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity 
+            android:name="MainActivity" 
+            android:exported="true">
+            <intent-filter>
+                <action 
+                    android:name="android.intent.action.MAIN" />
+                <category 
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".settings_screen.SettingsActivity" />
+
+        <activity
+            android:name=".contact_chat_screen.ContactChatActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
+
+        <intent-filter>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:mimeType="text/plain" />
+        </intent-filter>
+
+        </activity>
+
+        <activity android:name=".phone_contacts_screen.ContactsActivity" />
+        <activity android:name=".settings_screen.ChangeNameActivity">
+
+        </activity>
+        <activity android:name=".settings_screen.ChangeBioActivity" />
+        <activity android:name=".settings_screen.ZoomPhotoActivity" />
+    </application>
+</manifest>
