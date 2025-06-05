@@ -4,9 +4,9 @@ import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cfks.telefriends.db.Message;
-
 import java.util.Date;
+
+import com.cfks.telefriends.db.*;
 
 /**
  * Created by Kyrylo Avramenko on 6/19/2018.

@@ -1,6 +1,6 @@
 package com.cfks.telefriends.chats_previews_screen;
 
-import android.arch.lifecycle.ViewModelProviders;
+//import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class ConvoBottomDialog extends BottomSheetDialogFragment {
 
     private static final String TAG = "ConvoBottomDialog";
-    private ChatPreviewViewModel viewModel;
+    //private ChatPreviewViewModel viewModel;
 
     public static String RECIPIENT_ID = "recipientID";
 
@@ -34,7 +34,7 @@ public class ConvoBottomDialog extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(ChatPreviewViewModel.class);
+        //viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(ChatPreviewViewModel.class);
     }
 
     @Nullable
@@ -60,12 +60,12 @@ public class ConvoBottomDialog extends BottomSheetDialogFragment {
         TextView tvDelete = view.findViewById(R.id.tv_delete_convo);
 
         tvClear.setOnClickListener(v -> {
-            viewModel.cleanChat(id);
+            //viewModel.cleanChat(id);
             dismiss();
 
         });
         tvDelete.setOnClickListener(v -> {
-            viewModel.deleteChat(id);
+            //viewModel.deleteChat(id);
             dismiss();
         });
     }

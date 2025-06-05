@@ -11,7 +11,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 
-import com.cfks.telefriends.RollingFabState;
+import com.cfks.telefriends.fab.RollingFabState;
 
 /**
  * Created by Kyrylo Avramenko on 7/13/2018.

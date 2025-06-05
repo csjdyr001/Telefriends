@@ -23,7 +23,7 @@
             android:id="@+id/header_profile_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:contentDescription="导航标题"
+            android:contentDescription="导航栏"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:src="@drawable/profile_default_male" />
 

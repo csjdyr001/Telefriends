@@ -81,3 +81,9 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+
+# mapping
+app/unused.txt
+app/seeds_txt
+app/mapping.txt

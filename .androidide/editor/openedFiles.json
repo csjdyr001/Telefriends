@@ -1,0 +1,35 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java",
+      "selection": {
+        "end": {
+          "column": 52,
+          "index": 719,
+          "line": 20
+        },
+        "start": {
+          "column": 52,
+          "index": 719,
+          "line": 20
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 2,
+          "index": 1565,
+          "line": 58
+        },
+        "start": {
+          "column": 2,
+          "index": 1565,
+          "line": 58
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java"
+}

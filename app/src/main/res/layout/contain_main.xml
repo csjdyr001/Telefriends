@@ -34,11 +34,11 @@
         <android.support.design.widget.FloatingActionButton
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
-             app:layout_behavior="com.cfks.telefriends.FabScrollInListBehavior"
+             app:layout_behavior="com.cfks.telefriends.fab.FabScrollInListBehavior"
              android:clickable="true"
              app:backgroundTint="@color/colorPrimary"
              android:layout_margin="@dimen/fab_margin"
-             app:srcCompat="@drawable/ic_write"
+             app:srcCompat="@drawable/ic_add"
              android:focusable="true"
              android:id="@+id/main_write_fab"
              android:layout_gravity="bottom|end" />

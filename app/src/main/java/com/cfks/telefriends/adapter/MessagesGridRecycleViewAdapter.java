@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.cfks.telefriends.MessagePreview;
 import com.cfks.telefriends.R;
-import com.cfks.telefriends.db.Message;
 import com.cfks.telefriends.recycle_views.ViewMessageGridPreview;
 import com.cfks.telefriends.utils.DateHelper;
 import com.cfks.telefriends.utils.StringUtils;
+import com.cfks.telefriends.db.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,7 @@ public class MessagesGridRecycleViewAdapter extends RecyclerView.Adapter<Recycle
     public MessagesGridRecycleViewAdapter(Context context) {
         this.context = context;
     }
-
-
+    
     public void setItems(List<MessagePreview> items) {
         this.items = items;
 
@@ -72,12 +71,9 @@ public class MessagesGridRecycleViewAdapter extends RecyclerView.Adapter<Recycle
                     entity.getLastMessage()));
             viewMessageGridPreview.setPinImage(entity.isPinned());
             viewMessageGridPreview.setMessageSentTime(DateHelper.getProperDateFormat(entity.getDate()));
-//            //Log.d(TAG, "onBindViewHolder: entity.getImageResId()" + entity.getImageResId());
             viewMessageGridPreview.makeDraftLabelVisible(entity.getMessageType() == Message.MessageType.DRAFT);
             viewMessageGridPreview.setImage(ContextCompat.getDrawable(context, entity.getImageResId()));
 
-        } else {
-            //Log.e(TAG, "onBindViewHolder: entity is NULL at position: " + position);
         }
     }
 

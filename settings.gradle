@@ -1,34 +1,28 @@
 pluginManagement {
   repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://maven.aliyun.com/repository/google/' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
-        maven { url 'https://dl.bintray.com/ppartisan/maven/' }
-        maven { url "https://clojars.org/repo/" }
-        maven { url "https://jitpack.io" }
+   maven { url 'https://maven.aliyun.com/repository/public/' }
+   maven { url 'https://maven.aliyun.com/repository/google/' }
+   maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+   maven { url 'https://dl.bintray.com/ppartisan/maven/' }
+   maven { url "https://clojars.org/repo/" }
+   maven { url "https://jitpack.io" }
     gradlePluginPortal()
     google()
     mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
   }
 }
 
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://maven.aliyun.com/repository/google/' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
-        maven { url 'https://dl.bintray.com/ppartisan/maven/' }
-        maven { url "https://clojars.org/repo/" }
-        maven { url "https://jitpack.io" }
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://maven.aliyun.com/repository/google/' }
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+    maven { url 'https://dl.bintray.com/ppartisan/maven/' }
+    maven { url "https://clojars.org/repo/" }
+    maven { url "https://jitpack.io" }
     google()
     mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
   }
 }
 

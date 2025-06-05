@@ -1,7 +1,5 @@
 package com.cfks.telefriends.utils;
 
-import com.cfks.telefriends.db.Converters;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
