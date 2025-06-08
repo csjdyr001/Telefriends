@@ -17,6 +17,7 @@ import java.util.Date;
 
 import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.Callable;
 
 /**
  * Created by Kyrylo Avramenko on 9/17/2018.
@@ -65,19 +66,20 @@ public class ImageHelper {
         context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
-    public static Flowable<String> saveBitmap(Context context, Bitmap bitmap) {
+    public static Flowable<String> saveBitmap(Context context,final Bitmap bitmap) {
 
         //Log.d(TAG, "saveBitmap: ");
-        File file = createImageFile(context);
+        final File file = createImageFile(context);
 
-        return Flowable.fromCallable(() -> {
-
-            FileOutputStream fOut = new FileOutputStream(file);
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-            fOut.flush();
-            fOut.close();
-            return file.getAbsolutePath();
+        return Flowable.fromCallable(new Callable() {
+             @Override
+             public final String call() throws Exception {
+                    FileOutputStream fOut = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                    fOut.flush();
+                    fOut.close();
+                    return file.getAbsolutePath();
+             }
         }).observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io());
     }

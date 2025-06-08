@@ -1,5 +1,6 @@
 package com.cfks.telefriends;
 
+import android.app.Activity;
 import android.content.pm.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -34,9 +35,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 		binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
         setUpUI();
-        ActivityCompat.requestPermissions(this,getAllPermissions(),1001);
+        共享数据.初始化数据(this,"Telefriends");
+        if(Build.VERSION.SDK_INT>=23){
+            ActivityCompat.requestPermissions(this,MainActivity.getAllPermissions(this),1001);
+        }
+        if(!(共享数据.是否包含数据("uid") && 共享数据.是否包含数据("password"))) {
+        	Intent intent = new Intent();
+            intent.setClass(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
     
     @Override
@@ -62,10 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.binding = null;
     }
     
-    private String[] getAllPermissions(){
-	PackageManager manager = getPackageManager();
+    public static String[] getAllPermissions(Activity ctx){
+	PackageManager manager = ctx.getPackageManager();
 	try {
-		PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+		PackageInfo info = manager.getPackageInfo(ctx.getPackageName(), 0);
 		String pkgName = info.packageName;
 		PackageInfo packageInfo = manager.getPackageInfo(pkgName, PackageManager.GET_PERMISSIONS);
 		return packageInfo.requestedPermissions;
@@ -76,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
     
     private void setUpUI() {
-
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -96,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuNav.setGroupVisible(R.id.nav_group_accounts, false);
         //menuCurrAccount = menuNav.findItem(R.id.nav_curr_account);
 
-
         profileImage = new CircleImageView(context);
         profileImage.setMinimumHeight(62);
         profileImage.setMinimumWidth(62);
@@ -106,7 +113,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final View navHeaderView = navigationView.getHeaderView(0);
         ToggleButton toggleBtn = navHeaderView.findViewById(R.id.account_view_icon_button);
-        toggleBtn.setOnCheckedChangeListener((buttonView, isChecked) -> menuNav.setGroupVisible(R.id.nav_group_accounts, isChecked));
+        toggleBtn.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+                // TODO: Implement this method
+                menuNav.setGroupVisible(R.id.nav_group_accounts, arg1);
+            }
+        });
 
         txtUserFullname = navHeaderView.findViewById(R.id.text_user_fullname);
         txtEmail = navHeaderView.findViewById(R.id.text_email);

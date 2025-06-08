@@ -59,14 +59,21 @@ public class ConvoBottomDialog extends BottomSheetDialogFragment {
         TextView tvClear = view.findViewById(R.id.tv_clear_convo);
         TextView tvDelete = view.findViewById(R.id.tv_delete_convo);
 
-        tvClear.setOnClickListener(v -> {
-            //viewModel.cleanChat(id);
-            dismiss();
-
+        tvClear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                // TODO: Implement this method
+                //viewModel.cleanChat(id);
+                dismiss();
+            }
         });
-        tvDelete.setOnClickListener(v -> {
-            //viewModel.deleteChat(id);
-            dismiss();
+        tvDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                // TODO: Implement this method
+                //viewModel.deleteChat(id);
+                dismiss();
+            }
         });
     }
 }

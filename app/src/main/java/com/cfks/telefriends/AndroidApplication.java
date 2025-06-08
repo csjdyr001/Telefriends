@@ -8,22 +8,12 @@ public class AndroidApplication extends Application {
         super.onCreate();
         // TODO: Implement this method
         CrashHandler.getInstance().init(this, new CrashListener() {
-            /**
-
-             * 重启app
-
-             */
+            //重启app
             @Override
             public void againStartApp() {
                 CrashToolUtils.startCrashListActivity(AndroidApplication.this);
             }
-            /**
-
-             * 自定义上传crash，支持开发者上传自己捕获的crash数据
-
-             * @param ex                        ex
-
-             */
+            //自定义上传crash，支持开发者上传自己捕获的crash数据
             @Override
             public void recordException(Throwable ex) {
                 //自定义上传crash，支持开发者上传自己捕获的crash数据

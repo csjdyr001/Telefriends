@@ -25,12 +25,12 @@ if (keystoreFilepath) {
 
 android {
     namespace 'com.cfks.telefriends'
-    compileSdk 28
+    compileSdk 27
     
     defaultConfig {
         applicationId "com.cfks.telefriends"
-        minSdk 19
-        targetSdk 28
+        minSdk 21//一些库不支持Android4.4  //19   //支持Android4.4-8.1（大部分手表都是这个之间）
+        targetSdk 27
         versionCode 1
         versionName "1.0"
         
@@ -63,11 +63,19 @@ android {
                println("WITH -> buildTypes -> release: using default key")
             }
         }
+        debug{
+            if (keyfile.exists()) {
+               println("WITH -> buildTypes -> release: using jks key")
+               signingConfig signingConfigs.release
+            } else {
+               println("WITH -> buildTypes -> release: using default key")
+            }
+        }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     buildFeatures {

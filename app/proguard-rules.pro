@@ -224,4 +224,4 @@
 -keep class com.yc.toollib.** { *; }
 -keep class de.hdodenhof.** { *; }
 -keep class io.reactivex.rxjava2.** { *; }
--keep class android.** { *; }
+#-keep class android.** { *; }

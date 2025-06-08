@@ -21,6 +21,6 @@
     <color name="primary_alpha">#552090ea</color>
     <color name="primary_alpha_focus">#882090ea</color>
 
-
+    <color name="textInputLayout">#96ffffff</color>
 
 </resources>
