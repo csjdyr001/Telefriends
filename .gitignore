@@ -87,3 +87,6 @@ lint/tmp/
 app/unused.txt
 app/seeds_txt
 app/mapping.txt
+
+# ApiConfig
+app/src/main/java/com/cfks/telefriends/ApiConfig.java

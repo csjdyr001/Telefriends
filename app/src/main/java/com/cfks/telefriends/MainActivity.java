@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(Build.VERSION.SDK_INT>=23){
             ActivityCompat.requestPermissions(this,MainActivity.getAllPermissions(this),1001);
         }
-        if(!(共享数据.是否包含数据("uid") && 共享数据.是否包含数据("password"))) {
+        if(!(共享数据.是否包含数据("email") && 共享数据.是否包含数据("password"))) {
         	Intent intent = new Intent();
             intent.setClass(this, LoginActivity.class);
             startActivity(intent);

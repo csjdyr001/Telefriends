@@ -99,4 +99,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'cn.yc:ToolLib:1.0.0'
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okio:okio:1.7.0'
 }
