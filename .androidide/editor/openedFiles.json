@@ -4,44 +4,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java",
       "selection": {
         "end": {
-          "column": 37,
-          "index": 1689,
-          "line": 43
+          "column": 26,
+          "index": 8339,
+          "line": 223
         },
         "start": {
-          "column": 37,
-          "index": 1689,
-          "line": 43
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/LoginActivity.java",
-      "selection": {
-        "end": {
-          "column": 102,
-          "index": 5782,
-          "line": 144
-        },
-        "start": {
-          "column": 102,
-          "index": 5782,
-          "line": 144
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle",
-      "selection": {
-        "end": {
-          "column": 18,
-          "index": 3194,
-          "line": 102
-        },
-        "start": {
-          "column": 18,
-          "index": 3194,
-          "line": 102
+          "column": 26,
+          "index": 8339,
+          "line": 223
         }
       }
     }

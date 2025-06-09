@@ -3,6 +3,9 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <meta-data android:name="com.cfks.telefriends.MyAppGlideModule"
+            android:value="AppGlideModule"/>
+    
     <uses-feature android:name="android.hardware.type.watch" />
     
     <uses-permission android:name="android.permission.INTERNET" />

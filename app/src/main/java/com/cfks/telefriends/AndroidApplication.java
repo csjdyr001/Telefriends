@@ -2,6 +2,8 @@ package com.cfks.telefriends;
 import android.app.Application;
 import com.yc.toollib.tool.*;
 import com.yc.toollib.crash.*;
+
+@android.support.annotation.Keep
 public class AndroidApplication extends Application {
     @Override
     public void onCreate() {

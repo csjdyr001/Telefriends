@@ -20,6 +20,8 @@ import com.cfks.telefriends.databinding.ActivityMainBinding;
 import com.cfks.telefriends.adapter.*;
 import com.cfks.telefriends.utils.*;
 import com.cfks.telefriends.chats_previews_screen.*;
+import com.cfks.telefriends.db.*;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding binding;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private RecyclerView recycleView;
     private MessagesGridRecycleViewAdapter adapterRv;
-    private TextView txtUserFullname, txtEmail;
+    private TextView txtUsername, txtUid;
     private CircleImageView profileImage, headerProfileImage;
 	
     @Override
@@ -41,11 +43,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this,MainActivity.getAllPermissions(this),1001);
         }
         if(!(共享数据.是否包含数据("email") && 共享数据.是否包含数据("password"))) {
-        	Intent intent = new Intent();
-            intent.setClass(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+        	goToLogin();
+        }else{
+            getUserInfo();
         }
+    }
+    
+    private void goToLogin(){
+        Intent intent = new Intent();
+        intent.setClass(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
     
     @Override
@@ -121,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        txtUserFullname = navHeaderView.findViewById(R.id.text_user_fullname);
-        txtEmail = navHeaderView.findViewById(R.id.text_email);
+        txtUsername = navHeaderView.findViewById(R.id.text_username);
+        txtUid = navHeaderView.findViewById(R.id.text_uid);
         headerProfileImage = navHeaderView.findViewById(R.id.header_profile_image);
         //endregion
 
@@ -170,5 +178,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         cbDialog.show(getSupportFragmentManager(),
                 "buttom_dialog_fragment");
+    }
+    
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private void updateUserDetail(@NonNull User user) {
+        if (user == null){
+            return;
+        }
+        txtUsername.setText(user.username);
+        txtUid.setText(Integer.toString(user.getUid()));
+        //menuCurrAccount.setTitle(user.firstName);
+
+        GlideRequest<Drawable> glideRequest = GlideApp.with(this)
+                .load(user.picUrl)
+                .placeholder(R.drawable.profile_default_male)
+                .fitCenter();
+
+        glideRequest.into(profileImage);
+        glideRequest.into(headerProfileImage);
+    }
+    
+    private void getUserInfo(){
+        NetUtils.post(this,ApiConfig.userInfoApi,共享数据.取文本("token"),new NetUtils.NetCallback(){
+            @Override
+            public void onSucceed(JSONObject json) throws Exception {
+                // TODO: Implement this method
+                if(json.getInt("code") == 200){
+                    //显示用户数据
+                }else{
+                    //登录过期
+                    Toast.makeText(MainActivity.this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                    goToLogin();
+                }
+            }
+        });
     }
 }
