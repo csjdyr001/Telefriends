@@ -220,6 +220,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // TODO: Implement this method
                 if(json.getInt("code") == 200){
                     //显示用户数据
+                    JSONObject data = json.getJSONObject("data");
+                    User mUser = new User(data.getInt("uid"));
+                    mUser.email = data.getString("email");
+                    mUser.username = data.getString("username");
+                    mUser.picUrl = data.getString("profilePhoto");
+                    updateUserDetail(mUser);
                 }else{
                     //登录过期
                     Toast.makeText(MainActivity.this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
