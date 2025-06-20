@@ -14,7 +14,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Kyrylo Avramenko on 6/16/2018.
  */
 public class ViewMessageGridPreview extends RecyclerView.ViewHolder {
-
     private static final String TAG = "ViewMessageGridPreview";
 
     private TextView title, messageContent, messageSentTime, draftLabel;

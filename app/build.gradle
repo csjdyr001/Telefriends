@@ -29,7 +29,7 @@ android {
     
     defaultConfig {
         applicationId "com.cfks.telefriends"
-        minSdk 21//一些库不支持Android4.4  //19   //支持Android4.4-8.1（大部分手表都是这个之间）
+        minSdk 21   //支持Android5.0-8.1
         targetSdk 27
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,12 @@ android {
     
     signingConfigs {
        release {
+           keyAlias keystoreAlias
+           keyPassword keystoreAliasPSW
+           storeFile keyfile
+           storePassword keystorePSW
+       }
+       debug {
            keyAlias keystoreAlias
            keyPassword keystoreAliasPSW
            storeFile keyfile
@@ -65,10 +71,10 @@ android {
         }
         debug{
             if (keyfile.exists()) {
-               println("WITH -> buildTypes -> release: using jks key")
-               signingConfig signingConfigs.release
+               println("WITH -> buildTypes -> debug: using jks key")
+               signingConfig signingConfigs.debug
             } else {
-               println("WITH -> buildTypes -> release: using default key")
+               println("WITH -> buildTypes -> debug: using default key")
             }
         }
     }

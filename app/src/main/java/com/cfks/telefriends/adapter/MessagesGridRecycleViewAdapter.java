@@ -49,7 +49,7 @@ public class MessagesGridRecycleViewAdapter extends RecyclerView.Adapter<Recycle
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+    
         RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
@@ -61,7 +61,6 @@ public class MessagesGridRecycleViewAdapter extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-
         ViewMessageGridPreview viewMessageGridPreview = (ViewMessageGridPreview) viewHolder;
         MessagePreview entity = items.get(position);
         if (entity != null) {
@@ -73,7 +72,6 @@ public class MessagesGridRecycleViewAdapter extends RecyclerView.Adapter<Recycle
             viewMessageGridPreview.setMessageSentTime(DateHelper.getProperDateFormat(entity.getDate()));
             viewMessageGridPreview.makeDraftLabelVisible(entity.getMessageType() == Message.MessageType.DRAFT);
             viewMessageGridPreview.setImage(ContextCompat.getDrawable(context, entity.getImageResId()));
-
         }
     }
 

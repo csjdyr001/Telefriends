@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot());
         setUpUI();
         共享数据.初始化数据(this,"Telefriends");
+        showStatement(this);
         if(Build.VERSION.SDK_INT>=23){
             ActivityCompat.requestPermissions(this,MainActivity.getAllPermissions(this),1001);
         }
@@ -47,6 +48,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else{
             getUserInfo();
         }
+    }
+    
+    public static void showStatement(Activity act){
+         if(!共享数据.取逻辑("showStatement")) {
+         	android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(act)
+                .setTitle("免责声明")
+                .setMessage("该软件仅用于学习和交流使用，作者不承担用户使用该软件的任何后果，使用该软件表示用户同意该声明。\n\n本项目Github开源地址：https://github.com/csjdyr001/Telefriends")
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        共享数据.置逻辑("showStatement",true);
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .create();
+            dialog.show();
+         }
     }
     
     private void goToLogin(){

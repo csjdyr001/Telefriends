@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         共享数据.初始化数据(this,"Telefriends");
+        MainActivity.showStatement(this);
         if(Build.VERSION.SDK_INT>=23){
             ActivityCompat.requestPermissions(this,MainActivity.getAllPermissions(this),1001);
         }
@@ -89,6 +90,13 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditor.getText().toString();
                 Toast.makeText(LoginActivity.this, "登录中…", Toast.LENGTH_SHORT).show();
                 loginApi(email,password);
+            }
+        });
+        ((Button)findViewById(R.id.reg)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                // TODO: Implement this method
+                Toast.makeText(LoginActivity.this, "暂不开放注册", Toast.LENGTH_SHORT).show();
             }
         });
     }

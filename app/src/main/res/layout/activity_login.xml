@@ -20,156 +20,167 @@
 
     </FrameLayout>
 
-    <LinearLayout
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:orientation="horizontal"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="80dp"
-         android:layout_alignParentTop="true"
-         android:id="@+id/linearLayout">
-
-        <LinearLayout
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content">
-
-            <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:textSize="32sp"
-                 android:textColor="#ffffff"
-                 android:text="Good " />
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:orientation="vertical">
-
-            <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:textSize="32sp"
-                 android:textColor="#ffffff"
-                 android:id="@+id/textView"
-                 android:text="Morning" />
-
-            <View
-                 android:layout_height="2dp"
-                 android:layout_width="match_parent"
-                 android:background="#deff00"
-                 android:layout_marginTop="2dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_below="@+id/linearLayout"
-         android:gravity="center"
-         android:layout_centerHorizontal="true"
-         android:textSize="10sp"
-         android:textColor="#9affffff"
-         android:layout_marginTop="4dp"
-         tools:ignore="SmallSp"
-         android:text="Telefriends：一款跨手表加好友软件" />
-
-    <LinearLayout
-         android:layout_height="wrap_content"
+    <ScrollView
+         android:layout_height="match_parent"
          android:layout_width="match_parent"
-         android:layout_marginBottom="32dp"
-         android:paddingRight="32dp"
-         android:orientation="vertical"
-         android:layout_centerHorizontal="true"
-         android:paddingLeft="32dp"
-         android:layout_alignParentBottom="true">
+         android:layout_alignParentTop="true">
 
-        <android.support.design.widget.TextInputLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:textColorHint="#96ffffff"
-             android:theme="@style/EditScreenTextInputLayoutStyle">
+        <RelativeLayout
+             android:layout_height="match_parent"
+             android:layout_width="match_parent">
 
-            <EditText
-                 android:layout_height="match_parent"
-                 android:layout_width="match_parent"
-                 android:drawablePadding="16dp"
-                 android:hint="邮箱"
-                 android:id="@+id/email"
-                 android:drawableEnd="@drawable/ic_email_white_24dp"
-                 android:textSize="16sp"
-                 android:textColor="@android:color/white"
-                 android:maxLines="1"
-                 android:inputType="textEmailAddress" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:textColorHint="#96ffffff"
-             android:theme="@style/EditScreenTextInputLayoutStyle">
-
-            <EditText
-                 android:layout_height="match_parent"
-                 android:layout_width="match_parent"
-                 android:drawablePadding="16dp"
-                 android:hint="密码"
-                 android:id="@+id/password"
-                 android:drawableEnd="@drawable/ic_lock_white_24dp"
-                 android:textSize="16sp"
-                 android:textColor="@android:color/white"
-                 android:maxLines="1"
-                 android:inputType="textPassword" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <LinearLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:layout_marginBottom="8dp"
-             android:gravity="center"
-             android:orientation="horizontal"
-             android:layout_marginTop="16dp">
-
-            <Button
+            <LinearLayout
                  android:layout_height="wrap_content"
                  android:layout_width="wrap_content"
-                 android:layout_marginEnd="16dp"
-                 android:background="@drawable/buttonshapewhitebg"
-                 android:textSize="16sp"
-                 android:enabled="false"
-                 android:textAllCaps="false"
-                 android:textColor="#96ffffff"
-                 android:text="注册"
-                 android:textStyle="bold" />
+                 android:orientation="horizontal"
+                 android:layout_centerHorizontal="true"
+                 android:layout_marginTop="80dp"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/linearLayout">
 
-            <Button
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="32sp"
+                         android:textColor="#ffffff"
+                         android:text="Good " />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:orientation="vertical">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="32sp"
+                         android:textColor="#ffffff"
+                         android:id="@+id/textView"
+                         android:text="Morning" />
+
+                    <View
+                         android:layout_height="2dp"
+                         android:layout_width="match_parent"
+                         android:background="#deff00"
+                         android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
                  android:layout_height="wrap_content"
                  android:layout_width="wrap_content"
-                 android:background="@drawable/buttonshapewhitebg"
-                 android:textSize="16sp"
-                 android:textAllCaps="false"
-                 android:id="@+id/login"
-                 android:textColor="#96ffffff"
-                 android:layout_marginStart="16dp"
-                 android:text="登录"
-                 android:textStyle="bold" />
+                 android:layout_below="@+id/linearLayout"
+                 android:gravity="center"
+                 android:layout_centerHorizontal="true"
+                 android:textSize="10sp"
+                 android:textColor="#9affffff"
+                 android:layout_marginTop="4dp"
+                 tools:ignore="SmallSp"
+                 android:text="Telefriends：一款跨手表加好友软件" />
 
-        </LinearLayout>
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:paddingRight="32dp"
+                 android:orientation="vertical"
+                 android:layout_centerHorizontal="true"
+                 android:paddingLeft="32dp"
+                 android:layout_alignParentBottom="true"
+                 android:paddingTop="200dp">
 
-        <TextView
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:textAlignment="center"
-             android:textSize="16sp"
-             android:textColor="#96ffffff"
-             android:layout_marginTop="16dp"
-             android:text="忘记密码" />
+                <android.support.design.widget.TextInputLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textColorHint="#96ffffff"
+                     android:theme="@style/EditScreenTextInputLayoutStyle">
 
-    </LinearLayout>
+                    <EditText
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                         android:drawablePadding="16dp"
+                         android:hint="邮箱"
+                         android:drawableEnd="@drawable/ic_email_white_24dp"
+                         android:textSize="16sp"
+                         android:textColor="@android:color/white"
+                         android:maxLines="1"
+                         android:inputType="textEmailAddress"
+                         android:id="@+id/email" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textColorHint="#96ffffff"
+                     android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                    <EditText
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                         android:drawablePadding="16dp"
+                         android:hint="密码"
+                         android:drawableEnd="@drawable/ic_lock_white_24dp"
+                         android:textSize="16sp"
+                         android:textColor="@android:color/white"
+                         android:maxLines="1"
+                         android:inputType="textPassword"
+                         android:id="@+id/password" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:layout_marginBottom="8dp"
+                     android:gravity="center"
+                     android:orientation="horizontal"
+                     android:layout_marginTop="16dp">
+
+                    <Button
+                         android:layout_height="wrap_content"
+                         android:layout_width="match_parent"
+                         android:textSize="16sp"
+                         android:textAllCaps="false"
+                         android:textColor="#96ffffff"
+                         android:background="@drawable/buttonshapewhitebg"
+                         android:id="@+id/login"
+                         android:text="登录"
+                         android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:layout_marginBottom="8dp"
+                     android:orientation="horizontal"
+                     android:layout_marginTop="16dp">
+
+                    <Button
+                         android:layout_height="wrap_content"
+                         android:layout_width="match_parent"
+                         android:textSize="16sp"
+                         android:textAllCaps="false"
+                         android:background="@drawable/buttonshapewhitebg"
+                         android:textColor="#96ffffff"
+                         android:id="@+id/reg"
+                         android:text="注册"
+                         android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
