@@ -40,7 +40,7 @@
              android:layout_margin="@dimen/fab_margin"
              app:srcCompat="@drawable/ic_add"
              android:focusable="true"
-             android:id="@+id/main_write_fab"
+             android:id="@+id/main_add_fab"
              android:layout_gravity="bottom|end" />
 
     </android.support.design.widget.CoordinatorLayout>

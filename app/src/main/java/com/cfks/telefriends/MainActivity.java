@@ -176,6 +176,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 longClickRecycleItem(position);
             }
         }));
+        
+        ((FloatingActionButton) findViewById(R.id.main_add_fab)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                // TODO: Implement this method
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AddFriendActivity.class);
+                MainActivity.this.startActivity(intent);
+                MainActivity.this.finish();
+            }
+        });
     }
     
     private void clickOnRecycleItem(int position) {
