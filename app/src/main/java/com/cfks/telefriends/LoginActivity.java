@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         FormEncodingBuilder formBuilder = new FormEncodingBuilder();
         formBuilder.add("email", email);
         formBuilder.add("password",pwd);
-        NetUtils.post(this,ApiConfig.loginApi,formBuilder,new NetUtils.NetCallback(){
+        NetUtils.post(this,ApiConfig.getLoginApi(this),formBuilder,new NetUtils.NetCallback(){
             @Override
             public void onSucceed(JSONObject json) throws Exception {
                 // TODO: Implement this method

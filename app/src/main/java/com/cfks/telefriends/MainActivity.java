@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
         txtUsername.setText(user.username);
-        txtUid.setText(Integer.toString(user.getUid()));
+        txtUid.setText("UID " + Integer.toString(user.getUid()));
         //menuCurrAccount.setTitle(user.firstName);
 
         GlideRequest<Drawable> glideRequest = GlideApp.with(this)
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     
     private void getUserInfo(){
-        NetUtils.post(this,ApiConfig.userInfoApi,共享数据.取文本("token"),new NetUtils.NetCallback(){
+        NetUtils.post(this,ApiConfig.getUserInfoApi(this),共享数据.取文本("token"),new NetUtils.NetCallback(){
             @Override
             public void onSucceed(JSONObject json) throws Exception {
                 // TODO: Implement this method
