@@ -48,6 +48,7 @@
         
         <activity
             android:name=".AddFriendActivity"
+            android:theme="@style/Theme.AppCompat.Light"
             android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>

@@ -4,17 +4,32 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java",
       "selection": {
         "end": {
-          "column": 8,
-          "index": 6956,
-          "line": 178
+          "column": 11,
+          "index": 11054,
+          "line": 280
         },
         "start": {
-          "column": 8,
-          "index": 6956,
-          "line": 178
+          "column": 11,
+          "index": 11054,
+          "line": 280
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java",
+      "selection": {
+        "end": {
+          "column": 28,
+          "index": 1776,
+          "line": 56
+        },
+        "start": {
+          "column": 28,
+          "index": 1776,
+          "line": 56
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java"
 }

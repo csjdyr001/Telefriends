@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtUsername, txtUid;
     private CircleImageView profileImage, headerProfileImage;
 	
+    private AlertDialog alertDialog1;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,10 +183,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View arg0) {
                 // TODO: Implement this method
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, AddFriendActivity.class);
-                MainActivity.this.startActivity(intent);
-                MainActivity.this.finish();
+                //选择要添加的手表类型
+                final String[] items = {"小天才", "360", "米兔"};
+                final int[] value = {WatchType.WATCH_XTC,WatchType.WATCH_360,WatchType.WATCH_MITU};
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+                alertBuilder.setTitle("请选择要添加的手表");
+                alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this, AddFriendActivity.class);
+                        intent.putExtra("watch_type",value[i]);
+                        alertDialog1.dismiss();
+                        MainActivity.this.startActivity(intent);
+                        MainActivity.this.finish();
+                    }
+                });
+                alertDialog1 = alertBuilder.create();
+                alertDialog1.show();
             }
         });
     }
