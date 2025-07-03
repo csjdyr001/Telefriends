@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // TODO: Implement this method
                 //选择要添加的手表类型
                 final String[] items = {"小天才", "360", "米兔"};
-                final int[] value = {WatchType.WATCH_XTC,WatchType.WATCH_360,WatchType.WATCH_MITU};
+                final int[] value = {WatchType.WATCH_XTC,WatchType.WATCH_QIHOO,WatchType.WATCH_MITU};
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle("请选择要添加的手表");
                 alertBuilder.setItems(items, new DialogInterface.OnClickListener() {

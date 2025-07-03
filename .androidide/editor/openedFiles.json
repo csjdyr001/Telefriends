@@ -4,14 +4,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java",
       "selection": {
         "end": {
-          "column": 5,
-          "index": 1232,
-          "line": 37
+          "column": 18,
+          "index": 1054,
+          "line": 32
         },
         "start": {
-          "column": 5,
-          "index": 1232,
-          "line": 37
+          "column": 18,
+          "index": 1054,
+          "line": 32
         }
       }
     },
@@ -29,7 +29,22 @@
           "line": 47
         }
       }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/utils/WatchUtils.java",
+      "selection": {
+        "end": {
+          "column": 18,
+          "index": 1444,
+          "line": 37
+        },
+        "start": {
+          "column": 18,
+          "index": 1444,
+          "line": 37
+        }
+      }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/watch/XTC.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/utils/WatchUtils.java"
 }

@@ -27,11 +27,7 @@ public class AddFriendActivity extends AppCompatActivity {
         case WatchType.WATCH_XTC:
             XTC.toDo(this);
             break;
-        case WatchType.WATCH_360:
-            Toast.makeText(this, "作者没做", Toast.LENGTH_SHORT).show();
-            backMainActivity();
-            break;
-        case WatchType.WATCH_MITU:
+        default:
             Toast.makeText(this, "作者没做", Toast.LENGTH_SHORT).show();
             backMainActivity();
             break;
