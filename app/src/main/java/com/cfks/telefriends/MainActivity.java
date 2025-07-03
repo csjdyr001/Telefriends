@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          if(!共享数据.取逻辑("showStatement")) {
          	android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(act)
                 .setTitle("免责声明")
-                .setMessage("该软件仅用于学习和交流使用，作者不承担用户使用该软件的任何后果，使用该软件表示用户同意该声明。\n\n本项目Github开源地址：https://github.com/csjdyr001/Telefriends")
+                .setMessage("该软件仅供学习和研究使用。其旨在为学术和研究人员提供参考和资料，任何其他目的均不适用。严禁将此软件用于任何商业或非法用途。对于因违反此规定而产生的任何法律后果，用户需自行承担全部责任。该软件的所有资源信息均来源于网络。如有关于版权的争议或问题，请联系原作者或权利人。本声明者与版权问题无关且不承担任何相关责任。\n\n本项目Github开源地址：https://github.com/csjdyr001/Telefriends")
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
