@@ -21,24 +21,48 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import com.cfks.telefriends.watch.XTC;
+import com.xtc.bleaddfriend.bluetooth.BleManager;
 import com.xtc.bleaddfriend.bluetooth.BleProfile;
+import com.xtc.bleaddfriend.bluetooth.Role;
+import com.xtc.bleaddfriend.bluetooth.behavior.BleAddFriendBeh;
+import com.xtc.bleaddfriend.bluetooth.client.BleClient;
+import com.xtc.bleaddfriend.bluetooth.server.BleServer;
 import com.xtc.bleaddfriend.service.BleManagerService;
 import com.xtc.bleaddfriend.util.StatusInfo;
 import com.xtc.bleaddfriend.util.Utils;
 import com.xtc.hardware.bluetooth.ble.util.BleUtils;
+import com.xtc.utils.storage.SharedManager;
 import java.util.UUID;
+import org.greenrobot.eventbus.EventBus;
 
 public class XTC {
   private static StatusInfo mStatusInfo;
   private static final String ALARM_VIEW_SHOWING_ACTION = "com.xtc.alarmclock.action.ALARM_VIEW_SHOWING";
   private static TelephonyManager telephonyManager;
-  private static BleManagerService mService = null;
-  private static ServiceConnection mConnection;
+  public static BleManagerService mService = null;
+  public static ServiceConnection mConnection;
   private static final int ANIMATION_THREE_STEP = 4;
-  private static BluetoothAdapter mAdapter;
+  public static BluetoothAdapter mAdapter;
   private static boolean hasRegisterReceiver = false;
   private static boolean hasStartPeripheralAndCentral = false;
-  private static BroadcastReceiver mBluetoothReceiver;
+  public static BroadcastReceiver mBluetoothReceiver;
+  private static int makeFriendFailedCount = 0;
+  private static final int[] $SwitchMap$com$xtc$bleaddfriend$bluetooth$Role = new int[Role.values().length];
+
+    static {
+        try {
+            $SwitchMap$com$xtc$bleaddfriend$bluetooth$Role[Role.FOR_2G.ordinal()] = 1;
+        } catch (NoSuchFieldError e) {
+        }
+        try {
+            $SwitchMap$com$xtc$bleaddfriend$bluetooth$Role[Role.LEFT.ordinal()] = 2;
+        } catch (NoSuchFieldError e) {
+        }
+        try {
+            $SwitchMap$com$xtc$bleaddfriend$bluetooth$Role[Role.RIGHT.ordinal()] = 3;
+        } catch (NoSuchFieldError e) {
+        }
+    }
 
   public static void toDo(Activity act) {
     initData(act);
@@ -84,7 +108,7 @@ public class XTC {
     }
   }
 
-  private static void requestBluetoothFromSettings(Context context) {
+  public static void requestBluetoothFromSettings(Context context) {
     Log.d("BleAddFriend_:", "");
     Intent intent = new Intent("com.xtc.bluetooth.ACTION_DELAY_CLOSE");
     intent.putExtra("time", 120000L);
@@ -185,7 +209,7 @@ public class XTC {
                         String str = (String) message.obj;
                         Log.i("BleAddFriend_Finish", "watchName=" + str);
                         if (TextUtils.isEmpty(str)) {
-                          //showBleConnectView();
+                          showBleConnectView(act,"");
                           return;
                         }
                         /*
@@ -194,20 +218,18 @@ public class XTC {
                             mTimeOfFail = null;
                         }
                         */
-                        //showBleConnectView(str);
+                        showBleConnectView(act,str);
                         return;
                       case 24:
                         //clearTimeScheduler();
-                        //showAddFirendSuccessful(true);
-                        Toast.makeText(act, "添加好友成功", Toast.LENGTH_SHORT).show();
+                        showAddFirendSuccessful(act,true);
                         return;
                       case 25:
-                        //showNoWatchAroundView(true);
-                        Toast.makeText(act, "附近没有手表", Toast.LENGTH_SHORT).show();
+                        showNoWatchAroundView(act,true);
                         return;
                       case 26:
                         //clearTimeScheduler();
-                        //showTouchFriendWatchAndAddSuccess();
+                        showTouchFriendWatchAndAddSuccess(act);
                         return;
                       default:
                         Log.e("BleAddFriend_:", "unexpect value");
@@ -234,7 +256,80 @@ public class XTC {
         }
       }
     };
+    EventBus.getDefault().register(act);
   }
+    
+  public static void showBleConnectView(Activity act,String str) {
+  	Toast.makeText(act, "蓝牙被连接，手表名称：" + str, Toast.LENGTH_SHORT).show();
+  }
+    
+  public static void showNoWatchAroundView(Activity act,boolean z) {
+      Log.d("BleAddFriend_Ui", "showNoWatchAroundView");
+  	if(mAdapter == null) {
+  		mAdapter = BleUtils.e(act);
+  	}
+      if (mAdapter != null && mAdapter.isEnabled()) {
+            Log.d("BleAddFriend_:", "交友失败，重启蓝牙");
+            BleManager.getInstance(act.getApplication()).stopClient();
+            BleManager.getInstance(act.getApplication()).stopGattServer();
+            mAdapter.disable();
+      }
+      makeFriendFailedCount++;
+      if (makeFriendFailedCount >= 3) {
+            Log.d("TAG", "碰到连续三次交友失败时强制杀死蓝牙进程！");
+            Utils.forceStopPackage("com.android.bluetooth", act.getApplicationContext());
+            makeFriendFailedCount = 0;
+      }
+      BleAddFriendBeh.makeFriendResultEvent("Result=Fail, Reason=" + failReason());
+      Log.d("BleAddFriend_Ui", "0");
+      Toast.makeText(act, "附近没有发现手表，原因：" + failReason(), Toast.LENGTH_SHORT).show();
+      closeBluetooth(act);
+      SharedManager.a(act.getApplication()).a("add_friend_fail", true);
+  }
+    
+  public static void showTouchFriendWatchAndAddSuccess(Activity act) {
+  	showAddFirendSuccessful(act,true);
+  }
+    
+  private static String failReason() {
+        if (Role.sRole == Role.UNKNOWN) {
+            return "No watch scanned";
+        }
+        switch ($SwitchMap$com$xtc$bleaddfriend$bluetooth$Role[Role.sRole.ordinal()]) {
+            case 1:
+                return BleClient.bigDataHaveConnected ? BleClient.bigDataHaveServiceDiscovered ? BleClient.bigDataHaveChanged ? BleClient.bigDataHaveWritten ? "FOR_2G: Transmission not complete" : "FOR_2G: Failed to write data" : "FOR_2G: Failed to receive data" : "FOR_2G: Failed to find services" : "FOR_2G: Not connected";
+            case 2:
+                return BleClient.bigDataHaveConnected ? BleClient.bigDataHaveServiceDiscovered ? BleClient.bigDataHaveWritten ? BleClient.bigDataHaveChanged ? "LEFT: Transmission not complete" : "LEFT: Failed to receive data" : "LEFT: Failed to write data" : "LEFT: Failed to find services" : "LEFT: Not connected";
+            default:
+                return BleServer.bigDataHaveConnected ? BleServer.bigDataHaveWriteRequest ? BleServer.bigDataHaveSent ? "RIGHT: Transmission not complete" : "RIGHT: Failed to send data" : "RIGHT: Failed to receive data" : "RIGHT: Not connected";
+        }
+    }
+    
+  public static void showAddFirendSuccessful(Activity act,boolean z) {
+      Log.d("BleAddFriend_Ui", "showAddFirendSuccessful");
+      Log.d("BleAddFriend_Ui", "0");
+      BleAddFriendBeh.makeFriendResultEvent("Result=Success");
+      mStatusInfo.setSessionStatus(7);
+  	Toast.makeText(act, "交友成功", Toast.LENGTH_SHORT).show();
+  }
+    
+  private static void closeBluetooth(Activity act) {
+        Log.d("BleAddFriend_:", "关闭蓝牙");
+        BluetoothAdapter e = BleUtils.e(act.getApplicationContext());
+        int state = e.getState();
+        switch (state) {
+            case 10:
+            case 11:
+            case 13:
+                return;
+            case 12:
+                e.disable();
+                return;
+            default:
+                Log.w("TAG", "Illegal state=" + state);
+                return;
+        }
+    }
 
   private static boolean handleIntent(Activity act, Intent intent) {
     Log.d("BleAddFriend_:", "############## handleIntent ####################");
@@ -270,7 +365,7 @@ public class XTC {
     return true;
   }
 
-  private static void startBindService(Activity act, BleManagerService bleManagerService, ServiceConnection serviceConnection) {
+  public static void startBindService(Activity act, BleManagerService bleManagerService, ServiceConnection serviceConnection) {
     if (hasStartPeripheralAndCentral) {
       return;
     }

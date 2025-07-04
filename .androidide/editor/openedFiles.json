@@ -4,14 +4,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java",
       "selection": {
         "end": {
-          "column": 18,
-          "index": 1054,
-          "line": 32
+          "column": 73,
+          "index": 2442,
+          "line": 70
         },
         "start": {
-          "column": 18,
-          "index": 1054,
-          "line": 32
+          "column": 73,
+          "index": 2442,
+          "line": 70
         }
       }
     },
@@ -20,46 +20,16 @@
       "selection": {
         "end": {
           "column": 26,
-          "index": 1815,
-          "line": 47
+          "index": 463,
+          "line": 13
         },
         "start": {
           "column": 26,
-          "index": 1815,
-          "line": 47
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/utils/WatchUtils.java",
-      "selection": {
-        "end": {
-          "column": 25,
-          "index": 286,
-          "line": 9
-        },
-        "start": {
-          "column": 25,
-          "index": 286,
-          "line": 9
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java",
-      "selection": {
-        "end": {
-          "column": 34,
-          "index": 2111,
-          "line": 58
-        },
-        "start": {
-          "column": 34,
-          "index": 2111,
-          "line": 58
+          "index": 463,
+          "line": 13
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java"
 }
