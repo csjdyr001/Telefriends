@@ -50,5 +50,7 @@
             android:name=".AddFriendActivity"
             android:theme="@style/Theme.AppCompat.Light"
             android:configChanges="orientation|screenSize"/>
+        
+        <activity android:name=".settings_screen.SettingsActivity" />
     </application>
 </manifest>

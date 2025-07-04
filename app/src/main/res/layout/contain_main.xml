@@ -38,7 +38,7 @@
              android:clickable="true"
              app:backgroundTint="@color/colorPrimary"
              android:layout_margin="@dimen/fab_margin"
-             app:srcCompat="@drawable/ic_add"
+             app:srcCompat="@drawable/ic_person_add"
              android:focusable="true"
              android:id="@+id/main_add_fab"
              android:layout_gravity="bottom|end" />

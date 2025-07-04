@@ -15,6 +15,7 @@ import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.widget.*;
+import com.cfks.telefriends.settings_screen.SettingsActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.cfks.telefriends.databinding.ActivityMainBinding;
 import com.cfks.telefriends.adapter.*;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 处理相册
     } else if (itemId == R.id.nav_settings) {
         drawer.closeDrawer(GravityCompat.START);
-        //SettingsActivity.open(context);
+        SettingsActivity.open(context);
     }
 
     return true;
@@ -184,8 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View arg0) {
                 // TODO: Implement this method
                 //选择要添加的手表类型
-                final String[] items = {"小天才", "360", "米兔"};
-                final int[] value = {WatchType.WATCH_XTC,WatchType.WATCH_QIHOO,WatchType.WATCH_MITU};
+                final String[] items = {"小天才",            "奇虎360",            "米兔",               "子腾"};
+                final int[]    value = {WatchType.WATCH_XTC,WatchType.WATCH_QIHOO,WatchType.WATCH_MITU,WatchType.WATCH_ZITENG};
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle("请选择要添加的手表");
                 alertBuilder.setItems(items, new DialogInterface.OnClickListener() {

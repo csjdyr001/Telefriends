@@ -31,11 +31,6 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="设置" />
-
-        <item
-            android:id="@+id/nav_faq"
-            android:icon="@drawable/ic_faq"
-            android:title="Telefriends FAQ" />
     </group>
 
 </menu>
