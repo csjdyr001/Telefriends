@@ -23,6 +23,37 @@ if (keystoreFilepath) {
     keyfile = file(keystoreFilepath)
 }
 
+//版本号
+def gitVersionCode() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', 'HEAD', '--first-parent', '--count'
+            standardOutput = stdout
+            workingDir project.rootDir
+        }
+        return stdout.toString().trim().toInteger()
+    } catch (e) {
+        logger.warn("Could not get git commit count: ${e.message}")
+        return 1
+    }
+}
+
+//获取short版本的 git commit id
+def getGitRevision() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short', 'HEAD'
+            standardOutput = stdout
+            workingDir project.rootDir
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return "unknown"
+    }
+}
+
 android {
     namespace 'com.cfks.telefriends'
     compileSdk 27
@@ -31,8 +62,8 @@ android {
         applicationId "com.cfks.telefriends"
         minSdk 21   //支持Android5.0-8.1
         targetSdk 27
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersionCode()
+        versionName getGitRevision()
         
         vectorDrawables { 
             useSupportLibrary true
@@ -70,6 +101,8 @@ android {
             }
         }
         debug{
+            // 为了不和 release 版本冲突
+            applicationIdSuffix ".debug"
             if (keyfile.exists()) {
                println("WITH -> buildTypes -> debug: using jks key")
                signingConfig signingConfigs.debug
@@ -78,7 +111,7 @@ android {
             }
         }
     }
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

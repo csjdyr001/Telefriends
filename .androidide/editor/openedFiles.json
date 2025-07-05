@@ -1,35 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/MainActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle",
       "selection": {
         "end": {
-          "column": 84,
-          "index": 7887,
-          "line": 191
+          "column": 34,
+          "index": 1777,
+          "line": 64
         },
         "start": {
-          "column": 84,
-          "index": 7887,
-          "line": 191
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/settings_screen/SettingsActivity.java",
-      "selection": {
-        "end": {
-          "column": 26,
-          "index": 13953,
-          "line": 369
-        },
-        "start": {
-          "column": 26,
-          "index": 13953,
-          "line": 369
+          "column": 34,
+          "index": 1777,
+          "line": 64
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/settings_screen/SettingsActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle"
 }
