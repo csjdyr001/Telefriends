@@ -13,6 +13,7 @@ import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.Keep;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -32,9 +33,12 @@ import com.xtc.bleaddfriend.util.StatusInfo;
 import com.xtc.bleaddfriend.util.Utils;
 import com.xtc.hardware.bluetooth.ble.util.BleUtils;
 import com.xtc.utils.storage.SharedManager;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import org.greenrobot.eventbus.EventBus;
 
+@Keep
 public class XTC {
   private static Activity act;
   private static StatusInfo mStatusInfo;
@@ -44,10 +48,16 @@ public class XTC {
   public static ServiceConnection mConnection;
   private static final int ANIMATION_THREE_STEP = 4;
   public static BluetoothAdapter mAdapter;
+  public static boolean isAddSuccessful;
   private static boolean hasRegisterReceiver = false;
   private static boolean hasStartPeripheralAndCentral = false;
   public static BroadcastReceiver mBluetoothReceiver;
   private static int makeFriendFailedCount = 0;
+  public static Timer mTimeOfFail;
+  public static Thread mTimeOutOfFailThread;
+  private static boolean inited = false;
+  private static boolean mIsConnect;
+  private static Handler mUiHandler;
   private static final int[] $SwitchMap$com$xtc$bleaddfriend$bluetooth$Role = new int[Role.values().length];
 	static {
 	    try {
@@ -64,18 +74,143 @@ public class XTC {
 	    }
 	}
 
-  public static void toDo(Activity activity) {
+  public static void init(Activity activity) {
+    inited = true;
     act = activity;
     initData();
     BleProfile.setDelayFirstTime();
     enableBluetooth(act,mStatusInfo);
     requestBluetoothFromSettings(act);
     registerListener();
-    handleIntent(act.getIntent());
+  }
+    
+  public static void onNewIntent(Intent intent) {
+    if(inited) {
+    	Log.d("BleAddFriend_:", "onNewIntent");
+        handleIntent(intent);
+    }
+  }
+    
+  public static void onResume() {
+      if(inited) {
+      	mTimeOutOfFailThread = new Thread(new Runnable(){
+              @Override
+              public void run() {
+        try {
+            mTimeOfFail = new Timer();
+            TimerTask timer = new TimerTask(){
+                @Override
+                public void run() {
+                    if(isAddSuccessful && mIsConnect) {
+                    	return;
+                    }
+                    if(mService != null) {
+                    	mService.stopPeripheralAndCentral();
+                    }
+                    if (mUiHandler != null) {
+                        mUiHandler.sendEmptyMessage(25);
+                    }
+                }
+            };
+            mTimeOfFail.schedule(timer, 45000L);
+        } catch (Exception exception) {
+            Log.e("BleAddFriend_ScanActivity", "mTimeOutOfFailThread#e:", exception);
+        }
+    }
+          });
+          mTimeOutOfFailThread.start();
+          Log.w("BleAddFriend_:", "########### onResume ################");
+          handleIntent(act.getIntent());
+      }
+  }
+    
+  public static void onPause() {
+  	if(inited) {
+  		if (mTimeOfFail != null) {
+              mTimeOfFail.cancel();
+              mTimeOfFail = null;
+          }
+          if (mTimeOutOfFailThread != null) {
+              mTimeOutOfFailThread.interrupt();
+              mTimeOutOfFailThread = null;
+          }
+          if (mService != null) {
+              mService.stopPeripheralAndCentral();
+          }
+      }
+  }
+    
+  public static void clearTimeScheduler() {
+  	if (mTimeOfFail != null) {
+        mTimeOfFail.cancel();
+        mTimeOfFail = null;
+      }
+      if (mTimeOutOfFailThread != null) {
+        mTimeOutOfFailThread.interrupt();
+        mTimeOutOfFailThread = null;
+      }
   }
 
   @TargetApi(23)
   private static void initData() {
+    isAddSuccessful = false;
+    mIsConnect = false;
+    mUiHandler = new Handler() {
+            @Override
+            public void handleMessage(Message message) {
+              super.handleMessage(message);
+              Log.i("BleAddFriend_Finish", "handleMessage what==" + message.what);
+              int i = message.what;
+              if (i != ANIMATION_THREE_STEP) {
+                switch (i) {
+                  case 0:
+                  case 1:
+                    if (!BleUtils.b(act)) {
+                      Log.i("BleAddFriend_:", "start bind service");
+                      requestBluetoothFromSettings(act);
+                      startBindService(mService, mConnection);
+                      return;
+                    } else {
+                      Log.i("BleAddFriend_:", "register receiver");
+                      act.registerReceiver(mBluetoothReceiver, new IntentFilter("android.bluetooth.adapter.action.STATE_CHANGED"));
+                      return;
+                    }
+                  default:
+                    switch (i) {
+                      case 23:
+                        Log.i("BleAddFriend_Finish", "0");
+                        clearTimeScheduler();
+                        String str = (String) message.obj;
+                        Log.i("BleAddFriend_Finish", "watchName=" + str);
+                        if (TextUtils.isEmpty(str)) {
+                          showBleConnectView("");
+                          return;
+                        }
+                        if (mTimeOfFail != null) {
+                            mTimeOfFail.cancel();
+                            mTimeOfFail = null;
+                        }
+                        showBleConnectView(str);
+                        return;
+                      case 24:
+                        clearTimeScheduler();
+                        showAddFirendSuccessful(true);
+                        return;
+                      case 25:
+                        showNoWatchAroundView(true);
+                        return;
+                      case 26:
+                        clearTimeScheduler();
+                        showTouchFriendWatchAndAddSuccess();
+                        return;
+                      default:
+                        Log.e("BleAddFriend_:", "unexpect value");
+                        return;
+                    }
+                }
+              }
+            }
+          };
     mStatusInfo = StatusInfo.getInstance(act.getApplicationContext());
     fakeData();
   }
@@ -182,64 +317,7 @@ public class XTC {
         Log.i("BleAddFriend_:", "onServiceConnected");
         mService = ((BleManagerService.BleServiceBinder) iBinder).getService();
         if (mService != null) {
-          mService.setHandler(new Handler() {
-            @Override
-            public void handleMessage(Message message) {
-              super.handleMessage(message);
-              Log.i("BleAddFriend_Finish", "handleMessage what==" + message.what);
-              int i = message.what;
-              if (i != ANIMATION_THREE_STEP) {
-                switch (i) {
-                  case 0:
-                  case 1:
-                    if (!BleUtils.b(act)) {
-                      Log.i("BleAddFriend_:", "start bind service");
-                      requestBluetoothFromSettings(act);
-                      startBindService(mService, mConnection);
-                      return;
-                    } else {
-                      Log.i("BleAddFriend_:", "register receiver");
-                      act.registerReceiver(mBluetoothReceiver, new IntentFilter("android.bluetooth.adapter.action.STATE_CHANGED"));
-                      return;
-                    }
-                  default:
-                    switch (i) {
-                      case 23:
-                        Log.i("BleAddFriend_Finish", "0");
-                        //clearTimeScheduler();
-                        String str = (String) message.obj;
-                        Log.i("BleAddFriend_Finish", "watchName=" + str);
-                        if (TextUtils.isEmpty(str)) {
-                          showBleConnectView("");
-                          return;
-                        }
-                        /*
-                        if (mTimeOfFail != null) {
-                            mTimeOfFail.cancel();
-                            mTimeOfFail = null;
-                        }
-                        */
-                        showBleConnectView(str);
-                        return;
-                      case 24:
-                        //clearTimeScheduler();
-                        showAddFirendSuccessful(true);
-                        return;
-                      case 25:
-                        showNoWatchAroundView(true);
-                        return;
-                      case 26:
-                        //clearTimeScheduler();
-                        showTouchFriendWatchAndAddSuccess();
-                        return;
-                      default:
-                        Log.e("BleAddFriend_:", "unexpect value");
-                        return;
-                    }
-                }
-              }
-            }
-          });
+          mService.setHandler(mUiHandler);
         }
         if (mStatusInfo.getSessionStatus() == 0) {
           Log.i("BleAddFriend_:", "### Current Status Is Idle, Starte Scanning And Adverister ####");
@@ -360,7 +438,7 @@ public class XTC {
           break;
       }
     } else {
-      //clearTimeScheduler();
+      clearTimeScheduler();
       //goToHomeActivity();
     }
     return true;

@@ -32,7 +32,7 @@ public class AddFriendActivity extends AppCompatActivity {
     int watch_type = intent.getIntExtra("watch_type",-1);
     switch(watch_type){
         case WatchType.WATCH_XTC:
-            XTC.toDo(this);
+            XTC.init(this);
             break;
         default:
             Toast.makeText(this, "作者没做", Toast.LENGTH_SHORT).show();
@@ -49,7 +49,6 @@ public class AddFriendActivity extends AppCompatActivity {
   }
     
   
-    
     
    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUiEvent(AddFriendUiEvent addFriendUiEvent) {
@@ -75,30 +74,28 @@ public class AddFriendActivity extends AppCompatActivity {
                 switch (i) {
                     case 23:
                         Log.i("BleAddFriend_Finish", "0");
-                        //clearTimeScheduler();
+                        XTC.clearTimeScheduler();
                         String str = (String) addFriendUiEvent.obj;
                         Log.i("BleAddFriend_Finish", "watchName=" + str);
                         if (TextUtils.isEmpty(str)) {
                             XTC.showBleConnectView("");
                             return;
                         }
-                        /*
-                        if (this.mTimeOfFail != null) {
-                            this.mTimeOfFail.cancel();
-                            this.mTimeOfFail = null;
+                        if (XTC.mTimeOfFail != null) {
+                            XTC.mTimeOfFail.cancel();
+                            XTC.mTimeOfFail = null;
                         }
-                        */
                         XTC.showBleConnectView(str);
                         return;
                     case 24:
-                        //clearTimeScheduler();
+                        XTC.clearTimeScheduler();
                         XTC.showAddFirendSuccessful(true);
                         return;
                     case 25:
                         XTC.showNoWatchAroundView(true);
                         return;
                     case 26:
-                        //clearTimeScheduler();
+                        XTC.clearTimeScheduler();
                         XTC.showTouchFriendWatchAndAddSuccess();
                         return;
                     default:
@@ -106,5 +103,26 @@ public class AddFriendActivity extends AppCompatActivity {
                         return;
                 }
         }
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // TODO: Implement this method
+        XTC.onPause();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // TODO: Implement this method
+        XTC.onResume();
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // TODO: Implement this method
+        XTC.onNewIntent(intent);
     }
 }
