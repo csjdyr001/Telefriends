@@ -225,4 +225,8 @@
 -keep class de.hdodenhof.** { *; }
 -keep class io.reactivex.rxjava2.** { *; }
 -keep class com.xtc.** { *; }
-#-keep class android.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class okhttp3.** { *; }
+-keep class org.greenrobot.eventbus.** { *; }
+-keep class retrofit2.** { *; }
+-keep class rx.** { *; }

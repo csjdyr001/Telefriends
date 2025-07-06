@@ -1,5 +1,6 @@
 package com.cfks.telefriends;
 import android.app.Application;
+import android.widget.Toast;
 import com.yc.toollib.tool.*;
 import com.yc.toollib.crash.*;
 
@@ -9,6 +10,9 @@ public class AndroidApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // TODO: Implement this method
+        if(getApplicationContext().getPackageName().endsWith(".debug")){
+            Toast.makeText(getApplicationContext(), "这是debug版本", Toast.LENGTH_SHORT).show();
+        }
         CrashHandler.getInstance().init(this, new CrashListener() {
             //重启app
             @Override

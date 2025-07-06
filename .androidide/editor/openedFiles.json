@@ -19,17 +19,17 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java",
       "selection": {
         "end": {
-          "column": 32,
-          "index": 4397,
-          "line": 125
+          "column": 45,
+          "index": 1080,
+          "line": 31
         },
         "start": {
-          "column": 32,
-          "index": 4397,
-          "line": 125
+          "column": 45,
+          "index": 1080,
+          "line": 31
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/watch/XTC.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java"
 }
