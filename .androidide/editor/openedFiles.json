@@ -1,20 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle",
+      "file": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java",
       "selection": {
         "end": {
-          "column": 34,
-          "index": 1777,
-          "line": 64
+          "column": 53,
+          "index": 1965,
+          "line": 62
         },
         "start": {
-          "column": 34,
-          "index": 1777,
-          "line": 64
+          "column": 53,
+          "index": 1965,
+          "line": 62
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/build.gradle"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Telefriends/app/src/main/java/com/cfks/telefriends/AddFriendActivity.java"
 }

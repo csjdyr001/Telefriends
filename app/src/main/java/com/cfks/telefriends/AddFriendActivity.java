@@ -64,7 +64,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 if (XTC.mAdapter.getState() == 12) {
                     Log.i("BleAddFriend_:", "start bind service");
                     XTC.requestBluetoothFromSettings(this);
-                    XTC.startBindService(this,XTC.mService, XTC.mConnection);
+                    XTC.startBindService(XTC.mService, XTC.mConnection);
                     return;
                 } else {
                     Log.i("BleAddFriend_:", "register receiver");
@@ -79,7 +79,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         String str = (String) addFriendUiEvent.obj;
                         Log.i("BleAddFriend_Finish", "watchName=" + str);
                         if (TextUtils.isEmpty(str)) {
-                            XTC.showBleConnectView(this,"");
+                            XTC.showBleConnectView("");
                             return;
                         }
                         /*
@@ -88,18 +88,18 @@ public class AddFriendActivity extends AppCompatActivity {
                             this.mTimeOfFail = null;
                         }
                         */
-                        XTC.showBleConnectView(this,str);
+                        XTC.showBleConnectView(str);
                         return;
                     case 24:
                         //clearTimeScheduler();
-                        XTC.showAddFirendSuccessful(this,true);
+                        XTC.showAddFirendSuccessful(true);
                         return;
                     case 25:
-                        XTC.showNoWatchAroundView(this,true);
+                        XTC.showNoWatchAroundView(true);
                         return;
                     case 26:
                         //clearTimeScheduler();
-                        XTC.showTouchFriendWatchAndAddSuccess(this);
+                        XTC.showTouchFriendWatchAndAddSuccess();
                         return;
                     default:
                         Log.e("BleAddFriend_:", "unexpect value");
