@@ -10,6 +10,15 @@
 # 最低支持Android版本
 `Android 5.0`
 
+# 开发进度
+| 手表名称 | 跨手表加好友 | 跨手表聊天 |
+| --- | --- | --- |
+| 小天才 | 30% | ❌ |
+| 米兔 | ❌ | ❌ |
+| 奇虎360 | ❌ | ❌ |
+| 华为手表 | ❌ | ❌ |
+| 子腾 | ❌ | ❌ |
+
 # 下载
 自行编译或前往[Github Releases](https://github.com/csjdyr001/Telefriends/releases)下载已编译的版本
 
