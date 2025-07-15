@@ -56,4 +56,4 @@ keystore.alias_password=
 ```
 
 # 参与贡献
-您可以前往[watch-apks分支]()提交提取到的各品牌手表apk文件,或推送PR提交您贡献的代码
+您可以前往[watch-apks分支](https://github.com/csjdyr001/Telefriends/tree/watch-apks)提交提取到的各品牌手表apk文件,或推送PR提交您贡献的代码
