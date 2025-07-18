@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.squareup.okhttp.FormEncodingBuilder;
 import java.io.IOException;
 import org.json.JSONObject;
-import com.cfks.telefriends.utils.共享数据;
+import com.cfks.telefriends.utils.*;
 
 public class LoginActivity extends AppCompatActivity {
     ImageView imageView;

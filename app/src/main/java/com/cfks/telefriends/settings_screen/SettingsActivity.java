@@ -534,24 +534,20 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
             Flowable<String> flowable = ImageHelper.saveBitmap(SettingsActivity.this, cropped);
             if (flowable != null) {
                 flowable.doOnNext(s -> {
-                    ImageUploader.uploadImage(new File(s),"jpeg",new ImageUploader.UploadCallback(){
+                    ImageUploader.uploadImage(SettingsActivity.this,new File(s),"auto",new ImageUploader.UploadCallback(){
                         @Override
                         public void onSuccess(String url, String deleteUrl, String message) {
                             // TODO: Implement this method
                             mUser.picUrl = url;
                             imgFilePath = url;
-                            runOnUiThread(()->{
-                                updateUserHeader(mUser);
-                                Toast.makeText(SettingsActivity.this, "图片上传图床成功,DEBUG:" + url, Toast.LENGTH_SHORT);
-                            });
+                            updateUserHeader(mUser);
+                            Toast.makeText(SettingsActivity.this, "图片上传图床成功,DEBUG:" + url, Toast.LENGTH_SHORT);
                         }
                                 
                         @Override
                         public void onFailure(String error) {
                             // TODO: Implement this method
-                            runOnUiThread(()->{
-                                Toast.makeText(SettingsActivity.this, "图片上传图床失败", Toast.LENGTH_SHORT);
-                            });
+                            Toast.makeText(SettingsActivity.this, "图片上传图床失败", Toast.LENGTH_SHORT);
                         }
                     });
                 }).subscribe();
