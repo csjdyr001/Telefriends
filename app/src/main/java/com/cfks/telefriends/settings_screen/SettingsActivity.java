@@ -41,13 +41,16 @@ import com.cfks.telefriends.GlideRequest;
 import com.cfks.telefriends.HeaderView;
 import com.cfks.telefriends.*;
 import com.cfks.telefriends.RecyclerItemClickListener;
-import com.cfks.telefriends.ViewModelFactory;
 import com.cfks.telefriends.adapter.ComplexRecyclerViewAdapter;
 import com.cfks.telefriends.db.User;
 import com.cfks.telefriends.utils.Config;
 import com.cfks.telefriends.utils.ImageHelper;
+import com.cfks.telefriends.utils.ImageUploader;
+import com.cfks.telefriends.utils.RxImageHelper;
 import com.cfks.telefriends.utils.WatchUtils;
 
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -76,9 +79,9 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
     private DividerItemDecoration itemDefaultDecor;
     private List<AdapterAndList> adapterAndLists;
     private boolean isHideToolbarView = false;
-    private SettingsViewModel viewModel;
     private CircleImageView profileImgHeader, profileImgFloat;
     private String imgFilePath;
+    private User mUser;
     //    private ArrayList<Object> listUserInfo;
     private final HashMap<Integer, String> mapRecycleItems = new HashMap<>();
 
@@ -94,16 +97,17 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Log.d(TAG, "onCreate: ");
+        this.mUser = MainActivity.mUser;
         setupUI();
         initRecycleView();
-        //observeViewModel();
+        observeViewModel();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //updateUserHeader(viewModel.getCachedUser());
-//        updateAllSettings(viewModel.getCachedUser());
+        updateUserHeader(mUser);
+        //updateAllSettings(mUser);
     }
 
     @Override
@@ -159,7 +163,7 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "发生了一些问题", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -179,13 +183,11 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
                     .fitCenter()
                     .into(targetCropBitmap);
 
-            Disposable disposable = viewModel.addToGallery(imgFilePath,
+            Disposable disposable = addToGallery(imgFilePath,
                     SettingsActivity.this).subscribe();
 
             compDisposable.add(disposable);
-        }
-
-        else if (requestCode == Config.Requests.GALLERY_REQUEST) {
+        }else if (requestCode == Config.Requests.GALLERY_REQUEST) {
             Log.d(TAG, "onActivityResult: GALLERY_REQUEST");
 
             if (data == null) {
@@ -199,6 +201,12 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
                     .fitCenter()
                     .into(targetCropBitmap);
         }
+    }
+    
+    private Completable addToGallery(@NonNull final String path, final Context context){
+        return RxImageHelper.addToGallery(path, context)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io());
     }
 
     //<editor-fold desc="private methods">
@@ -285,15 +293,12 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
     }
 
     private void observeViewModel() {
-        ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(SettingsViewModel.class);
-        User user = viewModel.getLiveCurrUser();
+        User user = mUser;
             Log.d(TAG, "onChanged: update user details: ");
             if (user == null){
                 Log.e(TAG, "observeViewModel: user in NULL");
             }else {
                 Log.d(TAG, "observeViewModel: set data from lived user");
-                viewModel.cacheUser(user);
                 updateUserHeader(user);
                 updateAllSettings(user);
             }
@@ -399,6 +404,9 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
             case WatchType.WATCH_ZITENG:
                 name = "子腾";
                 break;
+            case WatchType.WATCH_HUAWEI:
+                name = "华为";
+                break;
             default:
                 name = "其他品牌";
         }
@@ -422,7 +430,7 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
             startActivityForResult(takePicIntent, Config.Requests.REQUEST_CAPTURE_IMAGE);
         } else {
             imgFilePath = "";
-            Toast.makeText(this, "Can't take a picture", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "拍照失败", Toast.LENGTH_SHORT);
             Log.e(TAG, "addPhotoFromCamera: output is NULL");
         }
     }
@@ -434,7 +442,7 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
             return;
 
         final String name = user.username;
-        final String date = "Dec 14th";
+        final String date = "";
         floatHeaderView.bindTo(name, date);
         toolbarHeaderView.bindTo(name, date);
 
@@ -486,12 +494,12 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
 
             boolean isMainTextEmpty = TextUtils.isEmpty(mainText);
 
-            if (description.equals("Phone") && (isMainTextEmpty || !mainText.equals(user.email))) {
+            if (description.equals("邮箱") && (isMainTextEmpty || !mainText.equals(user.email))) {
                 ste.setMainText(user.email);
-            } else if (description.equals("Username") && (isMainTextEmpty || !mainText.equals(user.username))) {
+            } else if (description.equals("用户名") && (isMainTextEmpty || !mainText.equals(user.username))) {
                 ste.setMainText(user.username);
-            } else if (description.equals("Bio") && (isMainTextEmpty || !mainText.equals(user.bio))) {
-                ste.setMainText(user.bio);
+            } else if (description.equals("UID") && (isMainTextEmpty || !mainText.equals(user.getUid()))) {
+                ste.setMainText(Integer.toString(user.getUid()));
             }
         }
 
@@ -511,7 +519,7 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
         /*
         Log.d(TAG, "clickOnProfileImage: ");
         Intent intent = new Intent(context, ZoomPhotoActivity.class);
-        intent.putExtra(ZoomPhotoActivity.PHOTO_URL, viewModel.getCachedUser().picUrl);
+        intent.putExtra(ZoomPhotoActivity.PHOTO_URL, mUser.picUrl);
         startActivity(intent);
         */
     }
@@ -526,12 +534,28 @@ public class SettingsActivity extends AppCompatActivity implements AppBarLayout.
             Flowable<String> flowable = ImageHelper.saveBitmap(SettingsActivity.this, cropped);
             if (flowable != null) {
                 flowable.doOnNext(s -> {
-                    viewModel.updatePicUrlOfCurrUser(s);
-                    imgFilePath = s;
-                })
-                        .subscribe();
+                    ImageUploader.uploadImage(new File(s),"jpeg",new ImageUploader.UploadCallback(){
+                        @Override
+                        public void onSuccess(String url, String deleteUrl, String message) {
+                            // TODO: Implement this method
+                            mUser.picUrl = url;
+                            imgFilePath = url;
+                            runOnUiThread(()->{
+                                updateUserHeader(mUser);
+                                Toast.makeText(SettingsActivity.this, "图片上传图床成功,DEBUG:" + url, Toast.LENGTH_SHORT);
+                            });
+                        }
+                                
+                        @Override
+                        public void onFailure(String error) {
+                            // TODO: Implement this method
+                            runOnUiThread(()->{
+                                Toast.makeText(SettingsActivity.this, "图片上传图床失败", Toast.LENGTH_SHORT);
+                            });
+                        }
+                    });
+                }).subscribe();
             } else Log.e(TAG, "onResourceReady: cant save cropped bitmap");
-
         }
     };
 

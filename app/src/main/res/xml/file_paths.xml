@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths >
+    <external-path name="release"
+        path="Android/data/com.cfks.telefriends/files/Pictures" />
+    <external-path name="debug"
+        path="Android/data/com.cfks.telefriends.debug/files/Pictures" />
+</paths>

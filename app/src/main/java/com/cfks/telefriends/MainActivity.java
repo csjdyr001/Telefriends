@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	
     private AlertDialog alertDialog1;
     
+    public static User mUser;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View arg0) {
                 // TODO: Implement this method
                 //选择要添加的手表类型
-                final String[] items = {"小天才",            "奇虎360",            "米兔",               "子腾"};
-                final int[]    value = {WatchType.WATCH_XTC,WatchType.WATCH_QIHOO,WatchType.WATCH_MITU,WatchType.WATCH_ZITENG};
+                final String[] items = {"小天才",            "奇虎360",            "米兔",               "子腾",                 "华为"};
+                final int[]    value = {WatchType.WATCH_XTC,WatchType.WATCH_QIHOO,WatchType.WATCH_MITU,WatchType.WATCH_ZITENG,WatchType.WATCH_HUAWEI};
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle("请选择要添加的手表");
                 alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
@@ -268,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(json.getInt("code") == 200){
                     //显示用户数据
                     JSONObject data = json.getJSONObject("data");
-                    User mUser = new User(data.getInt("uid"));
+                    mUser = new User(data.getInt("uid"));
                     mUser.email = data.getString("email");
                     mUser.username = data.getString("username");
                     mUser.picUrl = data.getString("profilePhoto");
